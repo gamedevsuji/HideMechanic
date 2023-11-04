@@ -16,6 +16,7 @@ public class InputController : MonoSingleton<InputController>
 
     public Vector2 GetPlayerMovement() => moveInput;
     public Vector2 GetLook() => lookInput;
+    public bool GetInteract() => interactInput;
 
 
     private void Awake() => controls = new Controls();
@@ -61,7 +62,7 @@ public class InputController : MonoSingleton<InputController>
 
     private void OnMovementInput(InputAction.CallbackContext context) => moveInput = context.ReadValue<Vector2>();
     private void OnLookInput(InputAction.CallbackContext context) => lookInput = context.ReadValue<Vector2>();
-    private void OnInteractInput(InputAction.CallbackContext context) => interactInput = context.ReadValue<bool>();
+    private void OnInteractInput(InputAction.CallbackContext context) => interactInput = context.ReadValueAsButton();
 
 
 }

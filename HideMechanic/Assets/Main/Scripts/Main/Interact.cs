@@ -8,6 +8,15 @@ public class Interact : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float rayLength =2;
 
+    private bool clicked = false;
+
+
+    private void Start()
+    {
+
+        //layerMask = ~layerMask;
+    }
+
     void FixedUpdate()
     {
 
@@ -16,19 +25,36 @@ public class Interact : MonoBehaviour
 
         // This would cast rays only against colliders in layer 8.
         // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
-        //layerMask = ~layerMask;
 
         RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, rayLength, layerMask))
+
+        if (InputController.instance.GetInteract() && !clicked)
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
+            clicked = true;
+            // Does the ray intersect any objects excluding the player layer
+            if (Physics.Raycast(transform.position, transform.forward, out hit, rayLength,layerMask))
+            {
+                Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow);
+                Debug.Log("Did Hit " + hit.transform.gameObject.name);
+
+                InteractBase interactObject = hit.transform.GetComponent<InteractBase>();
+
+                if (interactObject != null)
+                {
+                    interactObject.InteractReceived();
+                }
+            }
+            else
+            {
+
+                Debug.DrawRay(transform.position, transform.forward * 1000, Color.white);
+                Debug.Log("Did not Hit");
+            }
         }
-        else
+        else if(!InputController.instance.GetInteract())
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
-            Debug.Log("Did not Hit");
+            clicked = false;
+
         }
     }
 }
