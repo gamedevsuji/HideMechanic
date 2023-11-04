@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class DoorInteract : MonoBehaviour, InteractBase
 {
-    private Animator doorAnimator;
+    [SerializeField]private Animator doorAnimator;
     private bool completed = true;
+    [SerializeField]private bool opened = false;
 
     private const string interactAnimation = "Interact";
 
@@ -13,20 +14,17 @@ public class DoorInteract : MonoBehaviour, InteractBase
 
     private void Awake()
     {
-        doorAnimator = GetComponent<Animator>();
         interact = Animator.StringToHash(interactAnimation);
-
     }
 
     public void InteractComplete()
     {
         completed = true;
-
     }
+
 
     public void InteractReceived()
     {
-
         if(completed)
         {
             doorAnimator.SetTrigger(interact);
