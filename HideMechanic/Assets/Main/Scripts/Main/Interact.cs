@@ -10,10 +10,11 @@ public class Interact : MonoBehaviour
 
     private bool clicked = false;
 
+    [SerializeField] private GameObject interactUI;
 
     private void Start()
     {
-
+        interactUI.SetActive(false);
         //layerMask = ~layerMask;
     }
 
@@ -28,12 +29,17 @@ public class Interact : MonoBehaviour
 
         RaycastHit hit;
 
-        if (InputController.instance.GetInteract() && !clicked)
+       
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayLength, layerMask))
         {
-            clicked = true;
-            // Does the ray intersect any objects excluding the player layer
-            if (Physics.Raycast(transform.position, transform.forward, out hit, rayLength,layerMask))
+            interactUI.SetActive(true);
+
+            if (InputController.instance.GetInteract() && !clicked)
             {
+                clicked = true;
+
+
                 Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow);
                 Debug.Log("Did Hit " + hit.transform.gameObject.name);
 
@@ -44,17 +50,20 @@ public class Interact : MonoBehaviour
                     interactObject.InteractReceived();
                 }
             }
-            else
+            else if (!InputController.instance.GetInteract())
             {
+                clicked = false;
 
-                Debug.DrawRay(transform.position, transform.forward * 1000, Color.white);
-                Debug.Log("Did not Hit");
             }
         }
-        else if(!InputController.instance.GetInteract())
+        else
         {
-            clicked = false;
+            interactUI.SetActive(false);
 
+            //Debug.DrawRay(transform.position, transform.forward * 1000, Color.white);
+            Debug.Log("Did not Hit");
         }
+        
+        
     }
 }
