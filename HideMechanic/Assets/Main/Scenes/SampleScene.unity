@@ -894,8 +894,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clampAngle: 80
-  horizontalSpeed: 50
-  verticalSpeed: 50
+  horizontalSpeed: 30
+  verticalSpeed: 30
   invertY: 1
 --- !u!1 &2049786678
 GameObject:
@@ -1238,15 +1238,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7885125014778782621}
-  m_LocalRotation: {x: -0, y: -0.4694715, z: -0, w: 0.8829476}
-  m_LocalPosition: {x: -0.6858, y: 0, z: 0.36043558}
+  m_LocalRotation: {x: 0, y: -0.47715867, z: 0, w: 0.8788172}
+  m_LocalPosition: {x: -0.657, y: 0, z: 0.372}
   m_LocalScale: {x: 2.54, y: 2.54, z: 2.54}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2100842822}
   m_Father: {fileID: 2049786679}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -56, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -57, z: 0}
 --- !u!95 &8495998990938400418
 Animator:
   serializedVersion: 5
