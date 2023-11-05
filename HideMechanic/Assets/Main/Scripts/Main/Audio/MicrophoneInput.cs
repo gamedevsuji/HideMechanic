@@ -2,32 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioLoudnessDetection : MonoBehaviour
+public class MicrophoneInput : MonoBehaviour
 {
-
-
-    public int sampleWindows = 64;
+    private const int sampleWindows = 64;
 
     private AudioClip microphoneClip;
 
-    // Start is called before the first frame update
     void Start()
-    {
-        MicrophoneToAudioClip();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void MicrophoneToAudioClip()
     {
         string microphoneName = Microphone.devices[0];
         microphoneClip = Microphone.Start(microphoneName, true, 20, AudioSettings.outputSampleRate);
-
-
     }
 
     public float GetLoudnessFromMicrophone()
@@ -35,7 +19,7 @@ public class AudioLoudnessDetection : MonoBehaviour
         return GetLoudnessFromAudioClip(Microphone.GetPosition(Microphone.devices[0]), microphoneClip);
     }
 
-    public float GetLoudnessFromAudioClip(int clipPosition,AudioClip clip)
+    private float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
     {
         int startPosition = clipPosition - sampleWindows;
         float[] waveData = new float[sampleWindows];

@@ -6,11 +6,17 @@ public class DoorInteract : MonoBehaviour, InteractBase
 {
     [SerializeField]private Animator doorAnimator;
     private bool completed = true;
-    [SerializeField]private bool opened = false;
+    private bool opened = false;
+
+    public bool closeCompleted;
 
     private const string interactAnimation = "Interact";
 
+
+    
+
     private int interact;
+
 
     private void Awake()
     {
@@ -19,6 +25,7 @@ public class DoorInteract : MonoBehaviour, InteractBase
 
     public void InteractComplete()
     {
+        closeCompleted = !opened;
         completed = true;
     }
 
@@ -27,6 +34,10 @@ public class DoorInteract : MonoBehaviour, InteractBase
     {
         if(completed)
         {
+            if (!opened) opened = true;
+            else opened = false;
+
+
             doorAnimator.SetTrigger(interact);
             completed = false;
         }
